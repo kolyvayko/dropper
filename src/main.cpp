@@ -36,7 +36,7 @@ void setup() {
 }
 
 void loop() {
-  prValue = analogRead(prPin); // Read pResistor
+  // prValue = analogRead(prPin); // Read pResistor
 
   if (prValue > prLaunch){
     // servoAngle = servoTargetAngle;
@@ -61,6 +61,13 @@ void loop() {
     } 
   }
   
+
+  if(prValue > prLaunch){
+    prValue = 0;
+  }else{
+    prValue = 1000;
+  }
+  delay(5000);
   // servoControl.write(servoAngle);
   // if(servoAngle != servoTmpAngle){
   //   delay(servoDelay);
