@@ -14,6 +14,9 @@ int prValue;				        // Store value from photoresistor (0-1023)
 const int prLaunch = 700;   // Value of Photoresistor action
 
 void setup() {
+  pinMode(0, OUTPUT);
+	pinMode(1, OUTPUT);
+
   // Photoresistor setup
   pinMode(prPin, INPUT);          // Set PhotoResistor pin
   servoControl.attach(servoPin);  // Set Servo pin
@@ -28,9 +31,15 @@ void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
   if (prValue < prLaunch){
+      digitalWrite(0, HIGH);
+	    digitalWrite(1, HIGH);
+
       servoControl.write(servoTargetAngle);
       delay(servoDelay);
   } else {
+      digitalWrite(0, LOW);
+	    digitalWrite(1, LOW);
+
       servoControl.write(servoDefaultAngle);
       delay(servoDelay);
   }
