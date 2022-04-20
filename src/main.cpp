@@ -42,27 +42,27 @@ void loop() {
     
     digitalWrite(0, HIGH);
     digitalWrite(1, HIGH);
-    if(servoAngle != servoTargetAngle){
-      for(servoTmpAngle = 0; servoTmpAngle < servoTargetAngle; servoTmpAngle += 1)  // goes from 0 degrees to 180 degrees 
-      {                                  // in steps of 1 degree 
-          servoControl.write(servoTmpAngle);              // tell servo to go to position in variable 'pos' 
-          delay(servoRefresh);        // waits 20ms for refresh period 
-          SoftRcPulseOut::refresh(1);        // generates the servo pulse
-      } 
-    }
+    // if(servoAngle != servoTargetAngle){
+    //   for(servoTmpAngle = 0; servoTmpAngle < servoTargetAngle; servoTmpAngle += 1)  // goes from 0 degrees to 180 degrees 
+    //   {                                  // in steps of 1 degree 
+    //       servoControl.write(servoTmpAngle);              // tell servo to go to position in variable 'pos' 
+    //       delay(servoRefresh);        // waits 20ms for refresh period 
+    //       SoftRcPulseOut::refresh(1);        // generates the servo pulse
+    //   } 
+    // }
     servoAngle = servoTargetAngle;
   } else {
     
     digitalWrite(0, LOW);
     digitalWrite(1, LOW);
-    if(servoAngle != servoDefaultAngle){
-      for(servoTmpAngle = servoTargetAngle; servoTmpAngle>=1; servoTmpAngle-=1)     // goes from 180 degrees to 0 degrees 
-      {                                
-        servoControl.write(servoTmpAngle);              // tell servo to go to position in variable 'pos' 
-        delay(servoRefresh);        // waits 20ms for for refresh period 
-        SoftRcPulseOut::refresh(1);        // generates the servo pulse
-      }
-    }
+    // if(servoAngle != servoDefaultAngle){
+    //   for(servoTmpAngle = servoTargetAngle; servoTmpAngle>=1; servoTmpAngle-=1)     // goes from 180 degrees to 0 degrees 
+    //   {                                
+    //     servoControl.write(servoTmpAngle);              // tell servo to go to position in variable 'pos' 
+    //     delay(servoRefresh);        // waits 20ms for for refresh period 
+    //     SoftRcPulseOut::refresh(1);        // generates the servo pulse
+    //   }
+    // }
     servoAngle = servoDefaultAngle;
   }
   
