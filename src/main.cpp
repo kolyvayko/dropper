@@ -53,7 +53,7 @@ void loop() {
     servoAngle = servoDefaultAngle;
     digitalWrite(0, LOW);
     digitalWrite(1, LOW);
-     for(servoTmpAngle = servoDefaultAngle; servoTmpAngle>=1; servoTmpAngle-=1)     // goes from 180 degrees to 0 degrees 
+     for(servoTmpAngle = servoTargetAngle; servoTmpAngle>=1; servoTmpAngle-=1)     // goes from 180 degrees to 0 degrees 
     {                                
       servoControl.write(servoTmpAngle);              // tell servo to go to position in variable 'pos' 
       delay(servoRefresh);        // waits 20ms for for refresh period 
