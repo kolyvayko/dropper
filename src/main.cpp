@@ -12,7 +12,6 @@ const int servoPin = 4;           // Servo at Arduino digital
 const int servoDefaultAngle = 0;  // Servo default angle
 const int servoTargetAngle = 70;  // Servo target angle
 int servoAngle = 0;
-int servoTmpAngle = 0;
 const int servoDelay = 500;       // Servo delay time in ms
 const int servoRefresh = 20;      // Servo refresh ms
 
