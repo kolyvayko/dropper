@@ -39,7 +39,7 @@ void loop() {
     servoAngle = servoDefaultAngle;
   }
   
-  servoControl.write(servoAngle);    // tell servo to go to position in variable 'pos' 
+  servoControl.write(servoAngle);    // tell servo to go to position in variable 'servoAngle' 
   delay(servoRefresh);               // waits 20ms for for refresh period 
   SoftRcPulseOut::refresh(1);        // generates the servo pulse
 }
