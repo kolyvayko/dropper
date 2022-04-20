@@ -19,7 +19,7 @@ void setup() {
   servoControl.attach(servoPin);  // Set Servo pin
 
   //Servo setup
-  delay(500); // Delay before reset
+  // delay(500); // Delay before reset
   servoControl.write(servoDefaultAngle); // Set servo to default position
   delay(500); // Delay after reset (waiting for position)
 }
@@ -29,10 +29,10 @@ void loop() {
 
   if (prValue < prLaunch){
       servoControl.write(servoTargetAngle);
-      delay(servoDelay);
+      // delay(servoDelay);
   } else {
       servoControl.write(servoDefaultAngle);
-      delay(servoDelay);
+      // delay(servoDelay);
   }
 
   delay(500); // Idle
