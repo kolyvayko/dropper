@@ -36,12 +36,12 @@ void setup() {
 }
 
 void loop() {
-  // prValue = analogRead(prPin); // Read pResistor
+  prValue = analogRead(prPin); // Read pResistor
 
-  // if (prValue > prLaunch){
-  //   // servoAngle = servoTargetAngle;
-  //   digitalWrite(0, HIGH);
-  //   digitalWrite(1, HIGH);
+  if (prValue > prLaunch){
+    servoAngle = servoTargetAngle;
+    digitalWrite(0, HIGH);
+    digitalWrite(1, HIGH);
 
   //   for(servoTmpAngle = 0; servoTmpAngle < servoTargetAngle; servoTmpAngle += 1)  // goes from 0 degrees to 180 degrees 
   //   {                                  // in steps of 1 degree 
@@ -49,17 +49,17 @@ void loop() {
   //     delay(servoRefresh);        // waits 20ms for refresh period 
   //     SoftRcPulseOut::refresh(1);        // generates the servo pulse
   //   } 
-  // } else {
-  //   // servoAngle = servoDefaultAngle;
-  //   digitalWrite(0, LOW);
-  //   digitalWrite(1, LOW);
+  } else {
+    servoAngle = servoDefaultAngle;
+    digitalWrite(0, LOW);
+    digitalWrite(1, LOW);
   //    for(servoTmpAngle = servoTargetAngle; servoTmpAngle>=1; servoTmpAngle-=1)     // goes from 180 degrees to 0 degrees 
   //   {                                
   //     servoControl.write(servoTmpAngle);              // tell servo to go to position in variable 'pos' 
   //     delay(servoRefresh);        // waits 20ms for for refresh period 
   //     SoftRcPulseOut::refresh(1);        // generates the servo pulse
   //   } 
-  // }
+  }
   
 
   // if(prValue > prLaunch){
