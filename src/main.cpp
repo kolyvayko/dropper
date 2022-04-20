@@ -40,8 +40,8 @@ void loop() {
 
   if (prValue < prLaunch){
     
-    digitalWrite(0, HIGH);
-    digitalWrite(1, HIGH);
+    // digitalWrite(0, HIGH);
+    // digitalWrite(1, HIGH);
     // if(servoAngle != servoTargetAngle){
     //   for(servoTmpAngle = 0; servoTmpAngle < servoTargetAngle; servoTmpAngle += 1)  // goes from 0 degrees to 180 degrees 
     //   {                                  // in steps of 1 degree 
@@ -53,8 +53,8 @@ void loop() {
     servoAngle = servoTargetAngle;
   } else {
     
-    digitalWrite(0, LOW);
-    digitalWrite(1, LOW);
+    // digitalWrite(0, LOW);
+    // digitalWrite(1, LOW);
     // if(servoAngle != servoDefaultAngle){
     //   for(servoTmpAngle = servoTargetAngle; servoTmpAngle>=1; servoTmpAngle-=1)     // goes from 180 degrees to 0 degrees 
     //   {                                
@@ -66,6 +66,8 @@ void loop() {
     servoAngle = servoDefaultAngle;
   }
   
+  analogWrite(0, prValue/4);
+  analogWrite(1, prValue/4);
 
   // if(prValue > prLaunch){
   //   prValue = 0;
