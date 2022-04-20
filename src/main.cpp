@@ -1,7 +1,9 @@
 #include <Arduino.h>
-#include <SoftwareServo.h>
+// #include <SoftwareServo.h>
+#include <SimpleServo.h>
 
-SoftwareServo servoControl;       // Define servo control object
+// SoftwareServo servoControl;       // Define servo control object
+SimpleServo servoControl;
 const int servoPin = 4;           // Servo at Arduino digital
 const int servoDefaultAngle = 0;  // Servo default angle
 const int servoTargetAngle = 120; // Servo target angle
