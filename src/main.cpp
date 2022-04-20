@@ -14,7 +14,7 @@ const int servoTargetAngle = 90; // Servo target angle
 int servoAngle = 0;
 int servoTmpAngle = 0;
 const int servoDelay = 500;       // Servo delay time in ms
-const int servoRefresh = 10;      // Servo refresh ms
+const int servoRefresh = 20;      // Servo refresh ms
 
 
 const int prPin = 5;        // Photoresistor at Arduino analog pin A0
