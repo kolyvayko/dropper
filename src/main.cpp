@@ -17,7 +17,7 @@ const int servoDelay = 500;       // Servo delay time in ms
 const int servoRefresh = 20;      // Servo refresh ms
 
 
-const int prPin = 2;        // Photoresistor at Arduino analog pin A0
+const int prPin = 3;        // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
 const int prLaunch = 700;   // Value of Photoresistor action
 
