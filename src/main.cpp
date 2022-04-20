@@ -25,15 +25,15 @@ void setup() {
 }
 
 void loop() {
-    prValue = analogRead(prPin); // Read pResistor
+  prValue = analogRead(prPin); // Read pResistor
 
   if (prValue < prLaunch){
       servoControl.write(servoTargetAngle);
-      // delay(servoDelay);
+      delay(servoDelay);
   } else {
       servoControl.write(servoDefaultAngle);
-      // delay(servoDelay);
+      delay(servoDelay);
   }
 
-  delay(500); // Idle
+  delay(1); // Idle
 }
