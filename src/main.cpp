@@ -14,12 +14,12 @@ const int servoDelay = 500;       // Servo delay time in ms
 const int servoRefresh = 20;      // Servo refresh ms
 
 
-const int prPin = A2;       // Photoresistor at Arduino analog pin A0
+const int prPin = A3;       // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
 const int prLaunch = 700;   // Value of Photoresistor action
 
 int launchStatus = 1;
-bool switched = false;
+bool actionDone = false;
 
 void setup() {
   // Photoresistor setup
@@ -37,14 +37,15 @@ void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
   if (prValue > prLaunch){
-    if(launchStatus == 1){
-      servo1Angle = servoTargetAngle;
-    }else if(launchStatus == 2){
-      servo2Angle = servoTargetAngle;
-    }
-    if(!switched){
-      launchStatus = 2;
-      switched = true;
+    if(!actionDone){
+      if(launchStatus == 1){
+        servo1Angle = servoTargetAngle;
+        launchStatus = 2;
+      }else if(launchStatus == 2){
+        servo2Angle = servoTargetAngle;
+        launchStatus = 1;
+      }
+      actionDone = true;  
     }
   } else {
     if(servo1Angle != servoDefaultAngle){
@@ -53,10 +54,7 @@ void loop() {
     if(servo2Angle != servoDefaultAngle){
       servo2Angle = servoDefaultAngle;
     }
-    if(switched){
-      launchStatus = 1;
-      switched = false;
-    }
+    actionDone = false;
   }
   
   servoControl1.write(servo1Angle);   // tell servo1 to go to position in variable 'servoAngle' 
