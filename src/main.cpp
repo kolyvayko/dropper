@@ -16,7 +16,7 @@ const int servoRefresh = 20;      // Servo refresh ms
 
 const int prPin = A3;       // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
-const int prLaunch = 300;   // Value of Photoresistor action
+const int prLaunch = 700;   // Value of Photoresistor action
 
 int launchStatus = 1;
 bool actionDone = false;
@@ -39,7 +39,7 @@ void setup() {
 void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
-  if (prValue < prLaunch){
+  if (prValue > prLaunch){
     digitalWrite(0, HIGH);
     digitalWrite(1, HIGH);
 
