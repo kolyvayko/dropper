@@ -46,10 +46,8 @@ void loop() {
     if(!actionDone){
       if(launchStatus == 1){
         servo1Angle = servoTargetAngle;
-        launchStatus = 2;
       }else if(launchStatus == 2){
         servo2Angle = servoTargetAngle;
-        launchStatus = 1;
       }
       actionDone = true;
     }
@@ -57,12 +55,16 @@ void loop() {
     digitalWrite(0, LOW);
     digitalWrite(1, LOW);
 
-    if(servo1Angle != servoDefaultAngle){
-      servo1Angle = servoDefaultAngle;
+    servo1Angle = servoDefaultAngle;
+    
+    servo2Angle = servoDefaultAngle;
+
+    if(launchStatus == 1){
+      launchStatus = 2;
+    }else if(launchStatus == 2){
+      launchStatus = 1;
     }
-    if(servo2Angle != servoDefaultAngle){
-      servo2Angle = servoDefaultAngle;
-    }
+    
     actionDone = false;
   }
   
