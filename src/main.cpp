@@ -59,10 +59,12 @@ void loop() {
     
     servo2Angle = servoDefaultAngle;
 
-    if(launchStatus == 1){
-      launchStatus = 2;
-    }else if(launchStatus == 2){
-      launchStatus = 1;
+    if(actionDone){
+      if(launchStatus == 1){
+        launchStatus = 2;
+      }else if(launchStatus == 2){
+        launchStatus = 1;
+      }
     }
     
     actionDone = false;
