@@ -55,10 +55,10 @@ void loop() {
     digitalWrite(0, LOW);
     digitalWrite(1, LOW);
 
-    servo1Angle = servoDefaultAngle;
-    servo2Angle = servoDefaultAngle;
-
     if(actionDone){
+      servo1Angle = servoDefaultAngle;
+      servo2Angle = servoDefaultAngle;
+
       if(launchStatus == 1){
         launchStatus = 2;
       }else if(launchStatus == 2){
