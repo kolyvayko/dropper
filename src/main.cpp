@@ -39,7 +39,7 @@ void setup() {
 void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
-  if (prValue > prLaunch){	
+  if (prValue > prLaunch){
     digitalWrite(0, HIGH);
     digitalWrite(1, HIGH);
 
@@ -51,7 +51,7 @@ void loop() {
         servo2Angle = servoTargetAngle;
         launchStatus = 1;
       }
-      actionDone = true;  
+      actionDone = true;
     }
   } else {
     digitalWrite(0, LOW);
