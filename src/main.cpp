@@ -24,6 +24,7 @@ bool actionDone = false;
 void setup() {
   // Photoresistor setup
   pinMode(0, OUTPUT);
+  pinMode(1, OUTPUT);
 
   pinMode(prPin, INPUT);          // Set PhotoResistor pin
   servoControl1.attach(servoPin1);  // Set Servo pin1
@@ -40,6 +41,7 @@ void loop() {
 
   if (prValue > prLaunch){	
     digitalWrite(0, HIGH);
+    digitalWrite(1, HIGH);
 
     if(!actionDone){
       if(launchStatus == 1){
@@ -53,6 +55,7 @@ void loop() {
     }
   } else {
     digitalWrite(0, LOW);
+    digitalWrite(1, LOW);
 
     if(servo1Angle != servoDefaultAngle){
       servo1Angle = servoDefaultAngle;
