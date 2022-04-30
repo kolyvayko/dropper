@@ -6,8 +6,10 @@ SoftRcPulseOut servoControl2;
 
 const int servoPin1 = PB2;           // Servo at Arduino digital
 const int servoPin2 = PB4;           // Servo at Arduino digital
-const int servoDefaultAngle = 0;  // Servo default angle
-const int servoTargetAngle = 70;  // Servo target angle
+const int servo1DefaultAngle = 0;  // Servo default angle
+const int servo1TargetAngle = 70;  // Servo target angle
+const int servo2DefaultAngle = 70;  // Servo default angle
+const int servo2TargetAngle = 0;  // Servo target angle
 int servo1Angle = 0;
 int servo2Angle = 0;
 const int servoDelay = 500;       // Servo delay time in ms
@@ -23,16 +25,16 @@ bool actionDone = false;
 
 void setup() {
   // Photoresistor setup
-  pinMode(0, OUTPUT);
-  pinMode(1, OUTPUT);
+  // pinMode(0, OUTPUT);
+  // pinMode(1, OUTPUT);
 
   pinMode(prPin, INPUT);          // Set PhotoResistor pin
   servoControl1.attach(servoPin1);  // Set Servo pin1
   servoControl2.attach(servoPin2);  // Set Servo pin2
 
   //Servo setup
-  servoControl1.write(servoDefaultAngle); // Set servo to default position
-  servoControl2.write(servoDefaultAngle); // Set servo to default position
+  servoControl1.write(servo1DefaultAngle); // Set servo to default position
+  servoControl2.write(servo2DefaultAngle); // Set servo to default position
   delay(500); // Delay after reset (waiting for position)
 }
 
@@ -40,24 +42,24 @@ void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
   if (prValue < prLaunch){
-    digitalWrite(0, HIGH);
-    digitalWrite(1, HIGH);
+    // digitalWrite(0, HIGH);
+    // digitalWrite(1, HIGH);
 
     if(!actionDone){
       if(launchStatus == 1){
-        servo1Angle = servoTargetAngle;
+        servo1Angle = servo1TargetAngle;
       }else if(launchStatus == 2){
-        servo2Angle = servoTargetAngle;
+        servo2Angle = servo2TargetAngle;
       }
       actionDone = true;
     }
   } else {
-    digitalWrite(0, LOW);
-    digitalWrite(1, LOW);
+    // digitalWrite(0, LOW);
+    // digitalWrite(1, LOW);
 
     if(actionDone){
-      servo1Angle = servoDefaultAngle;
-      servo2Angle = servoDefaultAngle;
+      servo1Angle = servo1DefaultAngle;
+      servo2Angle = servo2DefaultAngle;
 
       if(launchStatus == 1){
         launchStatus = 2;
