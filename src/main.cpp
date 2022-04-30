@@ -4,12 +4,12 @@
 SoftRcPulseOut servoControl1;
 SoftRcPulseOut servoControl2;
 
-const int servoPin1 = PB2;           // Servo at Arduino digital
-const int servoPin2 = PB4;           // Servo at Arduino digital
-const int servo1DefaultAngle = 70;  // Servo default angle
-const int servo1TargetAngle = 0;  // Servo target angle
-const int servo2DefaultAngle = 0;  // Servo default angle
-const int servo2TargetAngle = 70;  // Servo target angle
+const int servoPin1 = PB2;           // Servo Left
+const int servoPin2 = PB4;           // Servo Right
+const int servo1DefaultAngle = 70;   // Servo Left default angle
+const int servo1TargetAngle = 0;     // Servo Left target angle
+const int servo2DefaultAngle = 0;    // Servo Right default angle
+const int servo2TargetAngle = 70;    // Servo Right target angle
 int servo1Angle = 0;
 int servo2Angle = 0;
 const int servoDelay = 500;       // Servo delay time in ms
