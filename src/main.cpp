@@ -6,8 +6,8 @@ SoftRcPulseOut servoControl2;
 
 const int servoPin1 = PB2;           // Servo Left
 const int servoPin2 = PB4;           // Servo Right
-const int servo1DefaultAngle = 0;   // Servo Left default angle
-const int servo1TargetAngle = 70;     // Servo Left target angle
+const int servo1DefaultAngle = 0;    // Servo Left default angle
+const int servo1TargetAngle = 70;    // Servo Left target angle
 const int servo2DefaultAngle = 0;    // Servo Right default angle
 const int servo2TargetAngle = 70;    // Servo Right target angle
 int servo1Angle = 0;
@@ -24,11 +24,7 @@ int launchStatus = 1;
 bool actionDone = false;
 
 void setup() {
-  // Photoresistor setup
-  // pinMode(0, OUTPUT);
-  // pinMode(1, OUTPUT);
-
-  pinMode(prPin, INPUT);          // Set PhotoResistor pin
+  pinMode(prPin, INPUT);            // Set PhotoResistor pin
   servoControl1.attach(servoPin1);  // Set Servo pin1
   servoControl2.attach(servoPin2);  // Set Servo pin2
 
@@ -42,9 +38,6 @@ void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
   if (prValue < prLaunch){
-    // digitalWrite(0, HIGH);
-    // digitalWrite(1, HIGH);
-
     if(!actionDone){
       if(launchStatus == 1){
         servo1Angle = servo1TargetAngle;
@@ -54,9 +47,6 @@ void loop() {
       actionDone = true;
     }
   } else {
-    // digitalWrite(0, LOW);
-    // digitalWrite(1, LOW);
-
     if(actionDone){
       servo1Angle = servo1DefaultAngle;
       servo2Angle = servo2DefaultAngle;
