@@ -33,7 +33,7 @@ void setup() {
   servoControl2.attach(servoPin2);  // Set Servo pin2
 
   //Servo setup
-  servoControl1.write(-70); // Set servo to default position
+  servoControl1.write(0); // Set servo to default position
   servoControl2.write(70); // Set servo to default position
   delay(500); // Delay after reset (waiting for position)
 }
