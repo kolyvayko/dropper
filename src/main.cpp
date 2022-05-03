@@ -27,7 +27,8 @@ void setup() {
   pinMode(prPin, INPUT);            // Set PhotoResistor pin
   servoControl1.attach(servoPin1);  // Set Servo pin1
   servoControl2.attach(servoPin2);  // Set Servo pin2
-
+  delay(50); // Delay for attach
+  
   //Servo setup
   servoControl1.write(servo1DefaultAngle); // Set servo to default position
   servoControl2.write(servo2DefaultAngle); // Set servo to default position
