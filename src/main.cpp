@@ -6,10 +6,10 @@ SoftRcPulseOut servoControl2;
 
 const int servoPin1 = PB2;           // Servo Left
 const int servoPin2 = PB4;           // Servo Right
-const int servo1DefaultAngle = 0;    // Servo Left default angle
-const int servo1TargetAngle = 70;    // Servo Left target angle
-const int servo2DefaultAngle = 70;    // Servo Right default angle
-const int servo2TargetAngle = 0;    // Servo Right target angle
+const int servo1DefaultAngle = 70;   // Servo Left default angle
+const int servo1TargetAngle = 0;     // Servo Left target angle
+const int servo2DefaultAngle = 0;    // Servo Right default angle
+const int servo2TargetAngle = 70;    // Servo Right target angle
 int servo1Angle = 0;
 int servo2Angle = 0;
 const int servoDelay = 500;       // Servo delay time in ms
@@ -24,14 +24,17 @@ int launchStatus = 1;
 bool actionDone = false;
 
 void setup() {
-  pinMode(prPin, INPUT);            // Set PhotoResistor pin
+  // Photoresistor setup
+  // pinMode(0, OUTPUT);
+  // pinMode(1, OUTPUT);
+
+  pinMode(prPin, INPUT);          // Set PhotoResistor pin
   servoControl1.attach(servoPin1);  // Set Servo pin1
   servoControl2.attach(servoPin2);  // Set Servo pin2
-  delay(50); // Delay for attach
-  
+
   //Servo setup
-  servoControl1.write(servo1DefaultAngle); // Set servo to default position
-  servoControl2.write(servo2DefaultAngle); // Set servo to default position
+  servoControl1.write(70); // Set servo to default position
+  servoControl2.write(70); // Set servo to default position
   delay(500); // Delay after reset (waiting for position)
 }
 
@@ -39,6 +42,9 @@ void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
   if (prValue < prLaunch){
+    // digitalWrite(0, HIGH);
+    // digitalWrite(1, HIGH);
+
     if(!actionDone){
       if(launchStatus == 1){
         servo1Angle = servo1TargetAngle;
@@ -48,6 +54,9 @@ void loop() {
       actionDone = true;
     }
   } else {
+    // digitalWrite(0, LOW);
+    // digitalWrite(1, LOW);
+
     if(actionDone){
       servo1Angle = servo1DefaultAngle;
       servo2Angle = servo2DefaultAngle;
