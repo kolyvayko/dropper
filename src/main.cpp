@@ -12,13 +12,12 @@ const int servo2DefaultAngle = 0;    // Servo Right default angle
 const int servo2TargetAngle = 60;    // Servo Right target angle
 int servo1Angle = 0;
 int servo2Angle = 0;
-const int servoDelay = 500;       // Servo delay time in ms
 const int servoRefresh = 20;      // Servo refresh ms
 
 
 const int prPin = A3;       // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
-const int prLaunch = 300;   // Value of Photoresistor action
+const int prLaunch = 100;   // Value of Photoresistor action
 
 int launchStatus = 1;
 bool actionDone = false;
