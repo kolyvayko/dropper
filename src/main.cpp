@@ -27,10 +27,8 @@ bool inited = false;
 
 void setup() {
   // Photoresistor setup
-  // pinMode(0, OUTPUT);
-  // pinMode(1, OUTPUT);
-
   pinMode(prPin, INPUT);          // Set PhotoResistor pin
+  // Servo setup
   servoControl1.attach(servoPin1);  // Set Servo pin1
   servoControl2.attach(servoPin2);  // Set Servo pin2
 }
