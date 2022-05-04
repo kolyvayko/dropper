@@ -20,6 +20,7 @@ int prValue;				        // Store value from photoresistor (0-1023)
 const int prLaunch = 100;   // Value of Photoresistor action
 
 bool inited = false;
+bool actionDone = false;
 
 void setup() {
   // Photoresistor setup
@@ -37,9 +38,15 @@ void loop() {
   prValue = analogRead(prPin); // Read pResistor
 
   if (prValue < prLaunch){
-    servoAngle = servoTargetAngle;
+    if(!actionDone){
+      servoAngle = servoTargetAngle;
+      actionDone = true;
+    }
   } else {
-    servoAngle = servoDefaultAngle;
+    if(!actionDone){
+      servoAngle = servoDefaultAngle;
+      actionDone = true;
+    }
   }
   
   servoControl.write(servoAngle);    // tell servo to go to position in variable 'servoAngle' 
