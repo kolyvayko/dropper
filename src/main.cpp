@@ -36,7 +36,7 @@ void loop() {
 
   prValue = analogRead(prPin); // Read pResistor
 
-  if (prValue > prLaunch){
+  if (prValue < prLaunch){
     servoAngle = servoTargetAngle;
   } else {
     servoAngle = servoDefaultAngle;
