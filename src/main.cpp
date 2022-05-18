@@ -4,8 +4,8 @@
 SoftRcPulseOut servoControl1;
 SoftRcPulseOut servoControl2;
 
-const int servoPin1 = PB2;           // Servo Left
-const int servoPin2 = PB4;           // Servo Right
+const int servoPin1 = 10;           // Servo Left
+const int servoPin2 = 11;           // Servo Right
 const int servo1DefaultAngle = 60;   // Servo Left default angle
 const int servo1TargetAngle = 0;     // Servo Left target angle
 const int servo2DefaultAngle = 0;    // Servo Right default angle
@@ -15,9 +15,9 @@ int servo2Angle = 0;
 const int servoRefresh = 20;      // Servo refresh ms
 
 
-const int prPin = A3;       // Photoresistor at Arduino analog pin A0
+const int prPin = A7;       // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
-const int prLaunch = 100;   // Value of Photoresistor action
+const int prLaunch = 15;   // Value of Photoresistor action
 
 int launchStatus = 1;
 bool actionDone = false;
@@ -27,6 +27,7 @@ bool inited = false;
 void setup() {
   // Photoresistor setup
   pinMode(prPin, INPUT);          // Set PhotoResistor pin
+  // Serial.begin(9600);
   // Servo setup
   servoControl1.attach(servoPin1);  // Set Servo pin1
   servoControl2.attach(servoPin2);  // Set Servo pin2
@@ -40,7 +41,7 @@ void loop() {
   }
 
   prValue = analogRead(prPin); // Read pResistor
-
+  // Serial.println(prValue);
   if (prValue < prLaunch){
     if(!actionDone){
       if(launchStatus == 1){
