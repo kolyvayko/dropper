@@ -8,7 +8,7 @@
 // SimpleServo servoControl;
 SoftRcPulseOut servoControl;
 
-const int servoPin = PB4;           // Servo at Arduino digital
+const int servoPin = 10;           // Servo at Arduino digital
 const int servoDefaultAngle = 0;  // Servo default angle
 const int servoTargetAngle = 70;  // Servo target angle
 int servoAngle = 0;
@@ -17,7 +17,7 @@ const int servoRefresh = 20;      // Servo refresh ms
 
 const int prPin = A3;        // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
-const int prLaunch = 100;   // Value of Photoresistor action
+const int prLaunch = 20;   // Value of Photoresistor action
 
 bool inited = false;
 
@@ -45,4 +45,6 @@ void loop() {
   servoControl.write(servoAngle);    // tell servo to go to position in variable 'servoAngle' 
   delay(servoRefresh);               // waits 20ms for for refresh period 
   SoftRcPulseOut::refresh(1);        // generates the servo pulse
+
+  delay(100);
 }
