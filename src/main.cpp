@@ -4,8 +4,8 @@
 SoftRcPulseOut servoControl1;
 SoftRcPulseOut servoControl2;
 
-const int servoPin1 = 10;           // Servo Left
-const int servoPin2 = 11;           // Servo Right
+const int servoPin1 = 3;           // Servo Left
+const int servoPin2 = 5;           // Servo Right
 const int servo1DefaultAngle = 60;   // Servo Left default angle
 const int servo1TargetAngle = 0;     // Servo Left target angle
 const int servo2DefaultAngle = 0;    // Servo Right default angle
@@ -15,7 +15,7 @@ int servo2Angle = 0;
 const int servoRefresh = 20;      // Servo refresh ms
 
 
-const int prPin = A7;       // Photoresistor at Arduino analog pin A0
+const int prPin = A3;       // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
 const int prLaunch = 15;   // Value of Photoresistor action
 
