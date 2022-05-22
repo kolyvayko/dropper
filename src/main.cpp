@@ -1,11 +1,13 @@
 #include <Arduino.h>
-#include <SoftRcPulseOut.h> 
+// #include <SoftRcPulseOut.h> 
+#include <Servo.h>
+ 
 
-SoftRcPulseOut servoControl1;
-SoftRcPulseOut servoControl2;
+Servo servoControl1;
+Servo servoControl2;
 
-const int servoPin1 = 10;           // Servo Left
-const int servoPin2 = 11;           // Servo Right
+const int servoPin1 = D6;           // Servo Left
+const int servoPin2 = D7;           // Servo Right
 const int servo1DefaultAngle = 60;   // Servo Left default angle
 const int servo1TargetAngle = 0;     // Servo Left target angle
 const int servo2DefaultAngle = 0;    // Servo Right default angle
@@ -15,7 +17,7 @@ int servo2Angle = 0;
 const int servoRefresh = 20;      // Servo refresh ms
 
 
-const int prPin = A7;       // Photoresistor at Arduino analog pin A0
+const int prPin = A0;       // Photoresistor at Arduino analog pin A0
 int prValue;				        // Store value from photoresistor (0-1023)
 const int prLaunch = 15;   // Value of Photoresistor action
 
@@ -69,5 +71,5 @@ void loop() {
   servoControl1.write(servo1Angle);   // tell servo1 to go to position in variable 'servoAngle' 
   servoControl2.write(servo2Angle);   // tell servo2 to go to position in variable 'servoAngle' 
   delay(servoRefresh);                // waits 20ms for for refresh period 
-  SoftRcPulseOut::refresh(1);         // generates the servo pulse
+  // SoftRcPulseOut::refresh(1);         // generates the servo pulse
 }
