@@ -1,35 +1,27 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-Servo servoControl1;
-Servo servoControl2;
-Servo servoControl3;
-Servo servoControl4;
-Servo servoControl5;
+struct SRVconfig{
+  int Number;
+  bool Enabled;
+  int Pin;
+  int DefaultAngle;
+  int TargetAngle;
+  int CurrentAngle;
+};
+
+Servo ServoControl[5];
 
 //Servo config
-const int servoPin1 = D5;  
-const int servo1DefaultAngle = 0;   
-const int servo1TargetAngle = 180;          
-const int servoPin2 = D6;
-const int servo2DefaultAngle = 0;   
-const int servo2TargetAngle = 180;
-const int servoPin3 = D7;
-const int servo3DefaultAngle = 160;   
-const int servo3TargetAngle = 0;
-const int servoPin4 = D2;
-const int servo4DefaultAngle = 160;   
-const int servo4TargetAngle = 0;
-const int servoPin5 = D4;
-const int servo5DefaultAngle = 0;   
-const int servo5TargetAngle = 180;
+SRVconfig conf[5] ={
+  {0,false, D5,0,180,0},
+  {1,false, D6,0,180,0},
+  {2,false, D7,160,0,160},
+  {3,false, D2,160,0,160},
+  {4,false, D4,0,180,0}
+};     
+SRVconfig SRVEnabled[5];   
 
-
-int servo1Angle = 0;
-int servo2Angle = 0;
-int servo3Angle = 0;
-int servo4Angle = 0;
-int servo5Angle = 0;
 const int servoRefresh = 20;      // Servo refresh ms
 
 //Photoresistor config
@@ -41,55 +33,15 @@ const int prLaunch = 30;   // Value of Photoresistor action
 const int loadPin = D3;
 
 //Config pins
-const int K1 = TX;
-const int K2 = RX;
-const int K3 = D1;
+int K[3] = {D0,D8,D1};
 
 int launchStatus = 1;
 bool actionDone = false;
 
-bool inited = false;
-
 bool serviceMode = false;
 
-void servoOpen(){
-    servoControl1.write(servo1TargetAngle);   
-    delay(servoRefresh); 
-    servoControl2.write(servo2TargetAngle);  
-    delay(servoRefresh);       
-    servoControl3.write(servo3TargetAngle);  
-    delay(servoRefresh);  
-    servoControl4.write(servo4TargetAngle);  
-    delay(servoRefresh);  
-    servoControl5.write(servo5TargetAngle);  
-    delay(servoRefresh);
-}
-
-void servoClose(){
-    servoControl1.write(servo1DefaultAngle);   
-    delay(servoRefresh); 
-    servoControl2.write(servo2DefaultAngle);  
-    delay(servoRefresh);       
-    servoControl3.write(servo3DefaultAngle);  
-    delay(servoRefresh);  
-    servoControl4.write(servo4DefaultAngle);  
-    delay(servoRefresh);  
-    servoControl5.write(servo5DefaultAngle);  
-    delay(servoRefresh);
-}
-
-void servoSetup(){
-  // Servo setup
-  servoControl1.attach(servoPin1);
-  servoControl2.attach(servoPin2); 
-  servoControl3.attach(servoPin3); 
-  servoControl4.attach(servoPin4); 
-  servoControl5.attach(servoPin5); 
-  if(!inited){
-    servoClose();
-    inited = true;
-  }
-}
+int SrvCount=5;
+int SrvEnabled=0;
 
 void setup() {
   // Photoresistor setup
@@ -99,18 +51,51 @@ void setup() {
   //Load key setup
   pinMode(loadPin, INPUT_PULLUP);
 
-  //Config switcher 
-  pinMode(K1,INPUT_PULLUP);
-  pinMode(K2,INPUT_PULLUP);
-  pinMode(K3,INPUT_PULLUP);
+  // Config switcher 
+  for (int i=0;i<3;i++){
+    pinMode(K[i],INPUT_PULLUP);
+  }
+
+  int K1Value = digitalRead(K[0]);
+  int K2Value = digitalRead(K[1]);
+  int K3Value = digitalRead(K[2]);
+
+
+  if (K1Value==0){
+    SRVEnabled[SrvEnabled]=conf[0];
+    SRVEnabled[SrvEnabled].Enabled=true;
+    SrvEnabled++;
+  }
+  if (K2Value==0){
+    SRVEnabled[SrvEnabled]=conf[1];
+    SRVEnabled[SrvEnabled].Enabled=true;
+    SrvEnabled++;
+    SRVEnabled[SrvEnabled]=conf[2];
+    SRVEnabled[SrvEnabled].Enabled=true;
+    SrvEnabled++;
+  }
+  if (K3Value==0){
+    SRVEnabled[SrvEnabled]=conf[3];
+    SRVEnabled[SrvEnabled].Enabled=true;
+    SrvEnabled++;
+    SRVEnabled[SrvEnabled]=conf[4];
+    SRVEnabled[SrvEnabled].Enabled=true;
+    SrvEnabled++;
+  }
 
   // Servo setup
-  servoSetup();
-
+  for (int i=0;i<SrvCount;i++){
+    // if (conf[i].Enabled){
+      ServoControl[i].attach(conf[i].Pin);
+    // }
+  }
+  for (int i=0;i<SrvCount;i++){
+      ServoControl[i].write(conf[i].DefaultAngle);
+      delay(servoRefresh); 
+  }
 }
 
 void loop() {
-
   int isLoad = digitalRead(loadPin);
   if (isLoad>0){
     prValue = analogRead(prPin); // Read pResistor
@@ -118,60 +103,32 @@ void loop() {
     prValue=0;
   }
 
-  int K1Value = digitalRead(K1);
-  int K2Value = digitalRead(K2);
-  int K3Value = digitalRead(K3);
-  
   // Serial.println(prValue);
   if (prValue < prLaunch){
     if(!actionDone){
-      if(launchStatus == 1){
-        servo1Angle = servo1TargetAngle;
-      }else if(launchStatus == 2){
-        servo2Angle = servo2TargetAngle;
-      }else if(launchStatus == 3){
-        servo3Angle = servo3TargetAngle;
-      }else if(launchStatus == 4){
-        servo4Angle = servo4TargetAngle;
-      }else if(launchStatus == 5){
-        servo5Angle = servo5TargetAngle;
-      }
+      Serial.println(launchStatus);
+      SRVEnabled[launchStatus-1].CurrentAngle = SRVEnabled[launchStatus-1].TargetAngle;
       actionDone = true;
     }
   } else {
     if(actionDone){
-      servo1Angle = servo1DefaultAngle;
-      servo2Angle = servo2DefaultAngle;
-      servo3Angle = servo3DefaultAngle;
-      servo4Angle = servo4DefaultAngle;
-      servo5Angle = servo5DefaultAngle;
-
-      if(launchStatus == 1){
-        launchStatus = 2;
-      }else if(launchStatus == 2){
-        launchStatus = 3;
-      }else if(launchStatus == 3){
-        launchStatus = 4;
-      }else if(launchStatus == 4){
-        launchStatus = 5;
-      }else if(launchStatus == 5){
+      for(int i=0;i<SrvEnabled;i++){
+        SRVEnabled[i].CurrentAngle=SRVEnabled[i].DefaultAngle;
+      }
+      if (launchStatus==SrvEnabled){
         launchStatus = 1;
+      }else{
+        launchStatus++;
       }
     }
-    
     actionDone = false;
   }
   
-  servoControl1.write(servo1Angle);   
-  delay(servoRefresh); 
-  servoControl2.write(servo2Angle);  
-  delay(servoRefresh);       
-  servoControl3.write(servo3Angle);  
-  delay(servoRefresh);  
-  servoControl4.write(servo4Angle);  
-  delay(servoRefresh);  
-  servoControl5.write(servo5Angle);  
-  delay(servoRefresh);   
-       
+  for (int i=0;i<SrvEnabled;i++){
+    // if (SRVEnabled[i].Enabled){
+      ServoControl[SRVEnabled[i].Number].write(SRVEnabled[i].CurrentAngle);
+      delay(servoRefresh);
+    // }
+  }     
 }
 
