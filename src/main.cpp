@@ -15,7 +15,7 @@ Servo ServoControl[2];
 //Servo config
 SRVconfig conf[2] ={
   {0,false, D5,180,60,180},
-  {1,false, D6,0,120,0}
+  {1,false, D6,10,180,10}
 };       
 
 const int servoRefresh = 20;      // Servo refresh ms
@@ -33,7 +33,11 @@ bool actionDone = false;
 
 int SrvCount=2;
 
-bool inited=false;
+void moveServo(int i, int angle){
+  ServoControl[i].write(angle);
+  delay(servoRefresh);
+  
+}
 
 void setup() {
   // Photoresistor setup
@@ -45,18 +49,17 @@ void setup() {
 
   // Servo setup
   for (int i=0;i<SrvCount;i++){
-    ServoControl[i].attach(conf[i].Pin);
+     ServoControl[i].attach(conf[i].Pin);
   }
+
+  for (int i=0;i<SrvCount;i++){
+    moveServo(i,conf[i].DefaultAngle);
+  }
+
 }
 
+
 void loop() {
-  if (!inited){
-    for (int i=0;i<SrvCount;i++){
-        ServoControl[i].write(conf[i].DefaultAngle);
-        delay(servoRefresh); 
-    }
-    inited=true;
-  }
 
   int isLoad = digitalRead(loadPin);
 
@@ -65,10 +68,8 @@ void loop() {
   }else{
     prValue=0;
   }
-  // Serial.println(prValue);
   if (prValue < prLaunch){
     if(!actionDone){
-      Serial.println(launchStatus);
       conf[launchStatus-1].CurrentAngle = conf[launchStatus-1].TargetAngle;
       actionDone = true;
     }
@@ -86,9 +87,8 @@ void loop() {
     actionDone = false;
   }
   for (int i=0;i<SrvCount;i++){
-      ServoControl[conf[i].Number].write(conf[i].CurrentAngle);
-      delay(servoRefresh);
+    moveServo(i,conf[i].CurrentAngle);
   }   
-  delay(100);  
+  delay(10);  
 }
 
