@@ -14,8 +14,8 @@ Servo ServoControl[2];
 
 //Servo config
 SRVconfig conf[2] ={
-  {0,false, D5,180,60,180},
-  {1,false, D6,10,180,10}
+  {0,false, D5,180,0,180},
+  {1,false, D6,0,180,0}
 };       
 
 const int servoRefresh = 20;      // Servo refresh ms
