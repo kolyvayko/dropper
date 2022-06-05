@@ -15,7 +15,7 @@ Servo ServoControl[2];
 //Servo config
 SRVconfig conf[2] ={
   {0,false, D5,180,60,180},
-  {1,false, D6,10,180,10}
+  // {1,false, D6,10,180,10}
 };       
 
 const int servoRefresh = 20;      // Servo refresh ms
@@ -31,7 +31,7 @@ const int loadPin = D3;
 int launchStatus = 1;
 bool actionDone = false;
 
-int SrvCount=2;
+int SrvCount=1;
 
 void moveServo(int i, int angle){
   ServoControl[i].write(angle);
