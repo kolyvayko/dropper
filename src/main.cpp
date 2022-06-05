@@ -44,29 +44,21 @@ void loop() {
   // Serial.println(prValue);
   if (prValue < prLaunch){
     if(!actionDone){
-      if(launchStatus == 1){
         servo1Angle = servo1TargetAngle;
-      }else if(launchStatus == 2){
         servo2Angle = servo2TargetAngle;
-      }
       actionDone = true;
     }
   } else {
     if(actionDone){
       servo1Angle = servo1DefaultAngle;
       servo2Angle = servo2DefaultAngle;
-
-      if(launchStatus == 1){
-        launchStatus = 2;
-      }else if(launchStatus == 2){
-        launchStatus = 1;
-      }
     }
     
     actionDone = false;
   }
   
   servoControl1.write(servo1Angle);   // tell servo1 to go to position in variable 'servoAngle' 
+  delay(servoRefresh); 
   servoControl2.write(servo2Angle);   // tell servo2 to go to position in variable 'servoAngle' 
   delay(servoRefresh);                // waits 20ms for for refresh period 
   SoftRcPulseOut::refresh(1);         // generates the servo pulse
