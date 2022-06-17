@@ -22,11 +22,16 @@ const int prLaunch = 15;   // Value of Photoresistor action
 int launchStatus = 1;
 bool actionDone = false;
 
+int swPin = 2;
+
 bool inited = false;
+
+bool twin = false;
 
 void setup() {
   // Photoresistor setup
   pinMode(prPin, INPUT);          // Set PhotoResistor pin
+  pinMode(swPin,INPUT_PULLUP);
   // Serial.begin(9600);
   // Servo setup
   servoControl1.attach(servoPin1);  // Set Servo pin1
@@ -37,6 +42,10 @@ void loop() {
   if(!inited){
     servo1Angle = servo1DefaultAngle;
     servo2Angle = servo2DefaultAngle;
+    int swValue = digitalRead(swPin);
+    if (swValue ==0){
+      twin = true;
+    }
     inited = true;
   }
 
@@ -44,23 +53,34 @@ void loop() {
   // Serial.println(prValue);
   if (prValue < prLaunch){
     if(!actionDone){
-      if(launchStatus == 1){
+      if (twin){
         servo1Angle = servo1TargetAngle;
-      }else if(launchStatus == 2){
         servo2Angle = servo2TargetAngle;
+      }else{
+        if(launchStatus == 1){
+          servo1Angle = servo1TargetAngle;
+        }else if(launchStatus == 2){
+          servo2Angle = servo2TargetAngle;
+        }
       }
       actionDone = true;
     }
   } else {
     if(actionDone){
-      servo1Angle = servo1DefaultAngle;
-      servo2Angle = servo2DefaultAngle;
+      if (twin){
+        servo1Angle = servo1DefaultAngle;
+        servo2Angle = servo2DefaultAngle;
+      }else{
+        servo1Angle = servo1DefaultAngle;
+        servo2Angle = servo2DefaultAngle;
 
-      if(launchStatus == 1){
-        launchStatus = 2;
-      }else if(launchStatus == 2){
-        launchStatus = 1;
+        if(launchStatus == 1){
+          launchStatus = 2;
+        }else if(launchStatus == 2){
+          launchStatus = 1;
+        }
       }
+      
     }
     
     actionDone = false;
