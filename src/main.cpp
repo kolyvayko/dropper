@@ -14,8 +14,8 @@ Servo ServoControl[2];
 
 //Servo config
 SRVconfig conf[2] ={
-  {0,false, D5,180,0,180},
-  {1,false, D6,0,180,0}
+  {0,false, D6,180,0,180},
+  {1,false, D5,0,180,0}
 };       
 
 const int servoRefresh = 20;      // Servo refresh ms
@@ -23,7 +23,7 @@ const int servoRefresh = 20;      // Servo refresh ms
 //Photoresistor config
 const int prPin = A0;       
 int prValue;				        // Store value from photoresistor (0-1023)
-const int prLaunch = 30;   // Value of Photoresistor action
+const int prLaunch = 22;   // Value of Photoresistor action
 
 //Load key
 const int loadPin = D3;
