@@ -24,7 +24,7 @@ const int servoRefresh = 20;      // Servo refresh ms
 const int prPin = A0;       
 int prValue;				        // Store value from photoresistor (0-1023)
 // const int prLaunch = 30;   // 30-50kphoto+10k //Value of Photoresistor action
-const int prLaunch = 20;   // 300-500k photo+200k
+const int prLaunch = 14;   // 300-500k photo+200k
 
 //Load key
 const int loadPin = D3;
