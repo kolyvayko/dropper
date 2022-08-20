@@ -23,7 +23,8 @@ const int servoRefresh = 20;      // Servo refresh ms
 //Photoresistor config
 const int prPin = A0;       
 int prValue;				        // Store value from photoresistor (0-1023)
-const int prLaunch = 22;   // Value of Photoresistor action
+// const int prLaunch = 22;   // for 220k resistor // Value of Photoresistor action
+const int prLaunch = 25; //for 100k
 
 //Load key
 const int loadPin = D3;
