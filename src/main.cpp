@@ -15,7 +15,7 @@ Servo ServoControl[2];
 //Servo config
 SRVconfig conf[2] ={
   {0,false, D5,180,60,180},
-  // {1,false, D6,10,180,10}
+  {1,false, D6,10,180,10}
 };       
 
 const int servoRefresh = 20;      // Servo refresh ms
@@ -32,7 +32,7 @@ const int loadPin = D3;
 int launchStatus = 1;
 bool actionDone = false;
 
-int SrvCount=1;
+int SrvCount=2;
 
 void moveServo(int i, int angle){
   ServoControl[i].write(angle);
@@ -71,7 +71,8 @@ void loop() {
   }
   if (prValue < prLaunch){
     if(!actionDone){
-      conf[launchStatus-1].CurrentAngle = conf[launchStatus-1].TargetAngle;
+      conf[0].CurrentAngle = conf[0].TargetAngle;
+      conf[1].CurrentAngle = conf[1].TargetAngle;
       actionDone = true;
     }
   } else {
